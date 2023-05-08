@@ -174,7 +174,120 @@ public:
 
         double len;
         fstream check;
-        check.open("Passenger.txt", ios::in | ios::binary);
+        check.open("Passenger.txt", ios::in | ios::binary); // opening file in input mode
+        check.seekg(0, ios::end);       // go to end of file
+        len = check.tellg();            // find the position of end
+        check.close();                  // closing file
 
+        if (len < 0)
+        {
+            cout << "No record of CNIC" << endl;
+            return false;
+        }
+        else
+        {
+            int count = 0;
+            fstream data;
+            data.open("Passenger.txt", ios::in);
+            while (!data.eof() && !data.fail())
+            {
+                data >> CNIC >> username >> password;
+                for (int i = 0; i < numofpass; i++)
+                {
+                    if (passenger[i].getCNIC() == CNIC)
+                    {
+                        count++;
+                        break;
+                    }
+
+                }
+
+            }
+            data.close();
+            if (count == 0)
+            {
+                cout << "No record of CNIC found" << endl;
+                return false;
+
+            }
+            else {
+                return true;
+            }
+
+        }
+
+    }
+
+    bool Login(int num) {
+        cout << endl;
+        string CNIC;
+        string username;
+        string password;
+
+        string C;
+        string user;
+        string pass;
+
+        cout << "Type CNIC :";
+        cin >> CNIC;
+
+        cout << "Type Username :";
+        cin >> username;
+
+        cout << "Type Password :";
+        char ch = _getch();
+        while (ch != 13) {//character 13 is enter
+            if (ch == 8)
+            {
+                cout << "\b \b";
+                password.pop_back();
+            }
+            else
+            {
+                password.push_back(ch);
+                cout << '*';
+                ch = _getch();
+
+            }
+        }
+        cout << endl;
+
+        int count = 0;
+        int index = 0;
+        fstream data;
+        data.open("Passenger.txt", ios::in);
+        while (!data.eof() && !data.fail())
+        {
+            data >> C >> user >> pass;
+            for (int i = 0; i < num; i++)
+            {
+                if (CNIC == C && username == user && password == pass)
+                {
+                    count++;
+                    index = i;
+                    break;
+                }
+            }
+        }
+        data.close();
+
+        if (count == 0)
+        {
+            cout << endl;
+            cout << "Invalid Login Info" << endl;
+            return false;
+        }
+        else
+        {
+            cout << endl;
+            cout << "Login Successful" << endl;
+            cout << passenger[index].getCNIC() << endl;
+            cout << passenger[index].getUsername() << endl;
+            cout << endl;
+        }
+    }
+
+    double getAmount() {
+        return bankamount;
     }
 };
