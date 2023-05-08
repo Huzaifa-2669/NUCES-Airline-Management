@@ -69,71 +69,37 @@ public:
         cin >> CNIC;
         while (CNIC.length() < 13 || CNIC.length() > 13)
         {
-            /* code */
+            cout << "Invalid CNIC, Please enter valid CNIC :";
+            cin >> CNIC;
+        }
+        //Validation to Check for existing CNIC
+        for (int i = 0; i < numofpass; i++)
+        {
+            if (passenger[i].getCNIC() == CNIC)
+            {
+                count++;
+            }
+        }
+        while (count > 0)
+        {
+            count = 0;
+            cout << "CNIC already exists, Please enter another CNIC :";
+            cin >> CNIC;
+            for (int i = 0; i < numofpass; i++)
+            {
+                if (passenger[i].getCNIC() == CNIC)
+                {
+                    count++;
+                }
+            }
         }
 
-
-
+        passenger[numofpass].Registration(CNIC);
+        if (update == 'y')
+        {
+            passenger[numofpass].StoreLogin();
+        }
+        cout << endl;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 };
