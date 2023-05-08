@@ -102,4 +102,79 @@ public:
         cout << endl;
     }
 
+    void changeLoginData() {
+        string store;
+        string user;
+        string pass;
+        string userchange;
+        string passchange;
+        string CNIC;
+
+        //Finding the number of lines in the file
+        fstream file;
+        file.open("Passenger.txt", ios::in);
+        int numoflogins = 0;
+        while (!file.eof() && !file.fail())
+        {
+            file >> CNIC >> user >> pass;
+            numoflogins++;
+        }
+        file.close();
+
+        fstream storelogindata;
+        storelogindata.open("Passenger.txt", ios::in);
+
+        cout << "Enter CNIC number to proceed to change Username or Password: ";
+        cin >> CNIC;
+
+        int i = 0;
+        while (!storelogindata.eof() && !storelogindata.fail())
+        {
+            storelogindata >> store >> user >> pass;
+            if (CNIC == store)
+            {
+                cout << "Type changed username: ";
+                cin >> userchange;
+                passenger[i].setUser(userchange);
+                cout << "Enter Changed Password :";
+                passenger[i].getPasswordInput();
+                passenger[i].PasswordCheck();
+                break;
+            }
+            i++;
+        }
+        if (i == numoflogins)
+        {
+            cout << "No record of CNIC found" << endl;
+        }
+        storelogindata.close();
+        //Clearing the file
+        file.open("Passenger.txt", ios::out, ios::trunc);
+        file.close();
+        //Storing the updated data
+        file.open("Passenger.txt", ios::out, ios::app);
+        int count = 0;
+        while (count != (numoflogins - 1))
+        {
+            file << passenger[count].getCNIC();
+            file << " ";
+            file << passenger[count].getUsername();
+            file << " ";
+            file << passenger[count].getPassword();
+            file << endl;
+            count++;
+        }
+        file.close();
+    }
+
+    bool loginExistence(int numofpass) {
+        string CNIC;
+        string username;
+        string password;
+
+        double len;
+        fstream check;
+        check.open("Passenger.txt", ios::in | ios::binary);
+
+    }
 };
