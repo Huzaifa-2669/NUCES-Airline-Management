@@ -19,7 +19,7 @@ public:
         cost = 0;
         seatnum = new char[3];
     }
-    void setflighttype(string f) {
+    void setflightype(string f) {
         flighttype = f;
     }
     void setflightnum(string f) {
@@ -28,16 +28,22 @@ public:
     void setDirect(string d) {
         direct = d;
     }
+    void setDeparture(string s) {
+        departure = s;
+    }
     void setDestination(string d) {
         destination = d;
     }
-    void setseatnumber(char* s) {
+    void setSeatNumber(char* s) {
         for (int i = 0; i < 4; i++)
         {
             seatnum[i] = s[i];
         }
     }
-    void setduration(double d) {
+    void setRoutes(Route r) {
+        routes = r;
+    }
+    void setDuration(double d) {
         duration = d;
     }
     double getcost() {
