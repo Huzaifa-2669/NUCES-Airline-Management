@@ -1,0 +1,9 @@
+﻿  Main.cpp
+C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\Account.h(21,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\Account.h(62,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\Account.h(73,1): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\Flight.h(259,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\Flight.h(535,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\Passenger.h(180,20): warning C4244: '=': conversion from 'std::streamoff' to 'double', possible loss of data
+C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\Admin.h(125,20): warning C4244: '=': conversion from 'std::streamoff' to 'int', possible loss of data
+  OOP Project.vcxproj -> C:\Users\Huzai\OneDrive\Desktop\University\Assignments\Semester 2\OOP\Project\22I-2669\OOP Project\x64\Debug\OOP Project.exe

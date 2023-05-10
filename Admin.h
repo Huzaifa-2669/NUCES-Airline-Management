@@ -156,7 +156,6 @@ public:
 		}
 	}
 
-
 	bool Login(int num) {
 		cout << endl;
 		string CNIC;

@@ -285,6 +285,7 @@ public:
 			cout << passenger[index].getCNIC() << endl;
 			cout << passenger[index].getUsername() << endl;
 			cout << endl;
+			return true;
 		}
 	}
 

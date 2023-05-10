@@ -1,25 +1,37 @@
-#include<iostream>
-#include<fstream>
+#include <iostream>
 #include<ctime>
+#include<Windows.h>
+#include <fstream>
 #include "Account.h"
-#include "Admin.h"
-#include "Booking.h"
-#include "Flight.h"
-#include "Islamabad.h"
-#include "Karachi.h"
-#include "Lahore.h"
 #include "Passenger.h"
-#include "Peshawar.h"
+#include "Flight.h"
+#include "Admin.h"
 #include "Plane.h"
+#include "Islamabad.h"
+#include "Peshawar.h"
+#include "Karachi.h"
 #include "Quetta.h"
+#include "Lahore.h"
+#include "Booking.h"
 
 using namespace std;
+
+string phoneNumber;
+string name;
+string address;
+string email;
+
 double BankDetails() {
 	double amount = 0;
-	cout << "Bank Details :" << endl;
-	cout << "Type the Amount you have in Bank :" << endl;
-	cin >> amount;
 
+	cout << "Bank Details:" << endl;
+	cout << "Type amount you have in your bank: ";
+	cin >> amount;
+	while (amount < 0)
+	{
+		cout << "Invalid amount, Please enter a valid amount: ";
+		cin >> amount;
+	}
 	return amount;
 }
 
@@ -27,22 +39,24 @@ void AboutUs() {
 	cout << endl;
 	cout << "You have just Landed on the Top 10 most Intelligently Coded Programs ever." << endl;
 	cout << "Huzaifa Mahmood" << endl;
-
+	cout << endl;
 }
 
 void ContactUs() {
+	phoneNumber = "03250369499";
+	name = "Huzaifa Mahmood";
+	address = "Yahan say straight aur wahan say right. Us kaay baad";
+	email = "i222669@nu.edu.pk";
 	cout << endl;
-	cout << "Phone Number : 03250369499" << endl;
-	cout << "Huzaifa Mahmood " << endl;
-	cout << "Email : I222669@nu.edu.pk" << endl;
-	cout << "Address : Yahan say straight aur wahan say right. Us kaay baad Fuck off" << endl;
-
+	cout << "Phone Number : " << phoneNumber << endl;
+	cout << "Name : " << name << endl;
+	cout << "Email :" << email << "" << endl;
+	cout << "Address : " << address << endl;
+	cout << endl;
 }
 
-int main()
-{
+int main() {
 	srand((unsigned)time(0));
-	Peshawar p;
 	cout << endl;
 	long double CNIC;
 	string username;
@@ -50,43 +64,44 @@ int main()
 	string secret = "E56789";
 	string key;
 
-	//Check no of logins in the Text file
-	fstream countLogins;
+	//check number of logins in text file to loop through and print
+	ifstream countlogin;
 	int noOfLogins = 0;
-	countLogins.open("Passengers.txt", ios::in);
-	while (!countLogins.eof() && !countLogins.fail())
-	{
-		countLogins >> CNIC >> username >> password;
+	countlogin.open("Passenger.txt");
+	while (!countlogin.eof() && !countlogin.fail()) {
+
+		countlogin >> CNIC >> username >> password;
 		noOfLogins++;
 	}
-	if (noOfLogins > 0)
-	{
+	if (noOfLogins > 0) {
 		noOfLogins--;
 	}
-	countLogins.close();
+	countlogin.close();
 
-	//initially define variables
+	//initially defining variables
 	char update = 'n';
 	bool exist;
 
-	//Generation of Passengers
+	//generation of Passengers
 	Account* pass;
-	pass = new Account[5000];
+	pass = new Account[50000];
 
-	//Generation of Admins
+	//generation of Admins
 	Account* ad;
 	ad = new Account[20];
 
-	//Aggregation
+
+	//Aggregation link
 	Passenger passenger(pass);
 	Admin admin(ad);
 
-	//Plane Generation
+	//Planes Generation
 	Planes* Islama = new Planes[20];
 	Planes* Karanchi = new Planes[20];
 	Planes* Quet = new Planes[20];
 	Planes* Pesh = new Planes[20];
 	Planes* Lah = new Planes[20];
+
 
 	Islamabad islam;
 	Peshawar pesh;
@@ -105,8 +120,9 @@ int main()
 	khi.setNorthData(Karanchi);
 	khi.setSouthData(Karanchi);
 
-	//Booking Obejct Creation
+	//Booking Object
 	Booking booking;
+
 	string city;
 	string city1;
 	string direction;
@@ -116,7 +132,12 @@ int main()
 	int loginoption = 0;
 	int adminchoice = 0;
 	int passengerchoice = 0;
-
+	Sleep(2000);
+	cout << "Loading .";Sleep(500); cout << ".";Sleep(500); cout << ".";Sleep(500); cout << "." << endl;
+	system("CLS");
+	cout << "-------------------------------------------------------------------------------------------" << endl;
+	cout << "Welcome To NUCES AirLine Management System" << endl;
+	cout << "-------------------------------------------------------------------------------------------" << endl;
 	while (loginoption != 6) {
 		cout << endl;
 		cout << "Would you like to:\n"
@@ -130,33 +151,32 @@ int main()
 		cin >> loginoption;
 
 		cout << endl;
-		if (loginoption == 1)
-		{
+		if (loginoption == 1) {
+
 			int panel = 0;
-			while (panel != 3)
-			{
-				cout << "Would you like to \n";
-				cout << "1) Passenger Login\n";
-				cout << "2) Admin Login\n";
-				cout << "3) Go Back to Home Page\n";
-				cout << "Option  :";
+			while (panel != 3) {
+
+				cout << "Would you like:\n"
+					<< "1) Passenger Login\n"
+					<< "2) Admin Login\n"
+					<< "3) go back to sign up or check flight schedule\n"
+					<< "Option: ";
 				cin >> panel;
 
-				if (panel == 1)
-				{
+				if (panel == 1) {
 					cout << endl;
 					exist = passenger.loginExistence(noOfLogins);
-					if (exist == false)
-					{
-						cout << "Would you loke to Sign up (y / n)" << endl;
+					if (exist == false) {
+						cout << "Would you like to sign up (y or n): ";
 						cin >> update;
-						if (update == 'y')
-						{
+						if (update == 'y') {
 							cout << endl;
 							passenger.Signup(noOfLogins, update);
 							noOfLogins++;
+
 						}
 					}
+
 					else {
 						cout << endl;
 						exist = passenger.Login(noOfLogins);
@@ -185,12 +205,12 @@ int main()
 										cout << "What city would you like to see flight schedule of: ";
 										cin >> city;
 
-										if (city == "Islamabad" || city == "islamabad") {
+										if (city == "Islamabad") {
 
 											cout << "Would you like to see data from North airport or South: ";
 											cin >> direction;
 
-											if (direction == "North" || direction == "north") {
+											if (direction == "North") {
 
 												islam.DisplayNorthData();
 											}
@@ -201,13 +221,13 @@ int main()
 											}
 										}
 
-										if (city == "Karachi" || city == "karachi") {
+										if (city == "Karachi") {
 
 
 											cout << "Would you like to see data from North airport or South: ";
 											cin >> direction;
 
-											if (direction == "North" || direction == "north") {
+											if (direction == "North") {
 
 												khi.DisplayNorthData();
 											}
@@ -218,13 +238,13 @@ int main()
 											}
 										}
 
-										if (city == "Lahore" || city == "lahore") {
+										if (city == "Lahore") {
 
 
 											cout << "Would you like to see data from North airport or South: ";
 											cin >> direction;
 
-											if (direction == "North" || direction == "north") {
+											if (direction == "North") {
 
 												lah.DisplayNorthData();
 											}
@@ -235,12 +255,12 @@ int main()
 											}
 										}
 
-										if (city == "Quetta" || city == "quetta") {
+										if (city == "Quetta") {
 
 											cout << "Would you like to see data from North airport or South: ";
 											cin >> direction;
 
-											if (direction == "North" || direction == "north") {
+											if (direction == "North") {
 
 												qut.DisplayNorthData();
 											}
@@ -251,12 +271,12 @@ int main()
 											}
 										}
 
-										if (city == "Peshawar" || city == "peshawar") {
+										if (city == "Peshawar") {
 
 											cout << "Would you like to see data from North airport or South: ";
 											cin >> direction;
 
-											if (direction == "North" || direction == "north") {
+											if (direction == "North") {
 
 												pesh.DisplayNorthData();
 											}
@@ -272,7 +292,7 @@ int main()
 										cout << "Which city would you like to book flight from: ";
 										cin >> city1;
 
-										if (city1 == "Islamabad" || city1 == "islamabad") {
+										if (city1 == "Islamabad") {
 											islam.DisplayNorthData();
 											islam.DisplaySouthData();
 											islam.RegisteredSeats(booking);
@@ -296,32 +316,11 @@ int main()
 														cout << "Your Left Over Amount: " << leftamount << endl;
 														passenger.setBankAmount(leftamount);
 													}
-													cout << "Would you Like to Refund your Booking ? (y/n)" << endl;
-													char choise;
-													cin >> choise;
-													if (choise == 'y')
-													{
-														cout << "Your Money will be refunded after Government Tax (25%).\nDo you Still wish to continue ? ( y / n)" << endl;
-														cin >> choise;
-														if (choise == 'y')
-														{
-															double ticketPrice = booking.getcost();
-															double governmentTax = ticketPrice * 0.25;
-															cout << "Your Ticket Price was: $" << ticketPrice;
-															cout << "The Government Tax is : $" << governmentTax;
-															leftamount = passenger.getAmount() + (ticketPrice - governmentTax);
-															passenger.setBankAmount(leftamount);
-															cout << "Now your Bank Balance is : $" << passenger.getAmount();
-
-														}
-
-													}
-
 												}
 											}
 										}
 
-										else if (city1 == "Quetta" || city1 == "quetta") {
+										else if (city1 == "Quetta") {
 											qut.DisplayNorthData();
 											qut.DisplaySouthData();
 											qut.RegisteredSeats(booking);
@@ -344,32 +343,12 @@ int main()
 													else {
 														cout << "Your Left Over Amount: " << leftamount << endl;
 														passenger.setBankAmount(leftamount);
-														cout << "Would you Like to Refund your Booking ? (y/n)" << endl;
-														char choise;
-														cin >> choise;
-														if (choise == 'y')
-														{
-															cout << "Your Money will be refunded after Government Tax (25%).\nDo you Still wish to continue ? ( y / n)" << endl;
-															cin >> choise;
-															if (choise == 'y')
-															{
-																double ticketPrice = booking.getcost();
-																double governmentTax = ticketPrice * 0.25;
-																cout << "Your Ticket Price was: $" << ticketPrice;
-																cout << "The Government Tax is : $" << governmentTax;
-																leftamount = passenger.getAmount() + (ticketPrice - governmentTax);
-																passenger.setBankAmount(leftamount);
-																cout << "Now your Bank Balance is : $" << passenger.getAmount();
-
-															}
-
-														}
 													}
 												}
 											}
 										}
 
-										else if (city1 == "Karachi" || city1 == "karachi") {
+										else if (city1 == "Karachi") {
 											khi.DisplayNorthData();
 											khi.DisplaySouthData();
 											khi.RegisteredSeats(booking);
@@ -392,32 +371,12 @@ int main()
 													else {
 														cout << "Your Left Over Amount: " << leftamount << endl;
 														passenger.setBankAmount(leftamount);
-														cout << "Would you Like to Refund your Booking ? (y/n)" << endl;
-														char choise;
-														cin >> choise;
-														if (choise == 'y')
-														{
-															cout << "Your Money will be refunded after Government Tax (25%).\nDo you Still wish to continue ? ( y / n)" << endl;
-															cin >> choise;
-															if (choise == 'y')
-															{
-																double ticketPrice = booking.getcost();
-																double governmentTax = ticketPrice * 0.25;
-																cout << "Your Ticket Price was: $" << ticketPrice;
-																cout << "The Government Tax is : $" << governmentTax;
-																leftamount = passenger.getAmount() + (ticketPrice - governmentTax);
-																passenger.setBankAmount(leftamount);
-																cout << "Now your Bank Balance is : $" << passenger.getAmount();
-
-															}
-
-														}
 													}
 												}
 											}
 										}
 
-										else if (city1 == "Peshawar" || city1 == "peshawar") {
+										else if (city1 == "Peshawar") {
 											pesh.DisplayNorthData();
 											pesh.DisplaySouthData();
 											pesh.RegisteredSeats(booking);
@@ -440,32 +399,12 @@ int main()
 													else {
 														cout << "Your Left Over Amount: " << leftamount << endl;
 														passenger.setBankAmount(leftamount);
-														cout << "Would you Like to Refund your Booking ? (y/n)" << endl;
-														char choise;
-														cin >> choise;
-														if (choise == 'y')
-														{
-															cout << "Your Money will be refunded after Government Tax (25%).\nDo you Still wish to continue ? ( y / n)" << endl;
-															cin >> choise;
-															if (choise == 'y')
-															{
-																double ticketPrice = booking.getcost();
-																double governmentTax = ticketPrice * 0.25;
-																cout << "Your Ticket Price was: $" << ticketPrice;
-																cout << "The Government Tax is : $" << governmentTax;
-																leftamount = passenger.getAmount() + (ticketPrice - governmentTax);
-																passenger.setBankAmount(leftamount);
-																cout << "Now your Bank Balance is : $" << passenger.getAmount();
-
-															}
-
-														}
 													}
 												}
 											}
 										}
 
-										else if (city1 == "Lahore" || city1 == "lahore") {
+										else if (city1 == "Lahore") {
 											lah.DisplayNorthData();
 											lah.DisplaySouthData();
 											lah.RegisteredSeats(booking);
@@ -488,26 +427,6 @@ int main()
 													else {
 														cout << "Your Left Over Amount: " << leftamount << endl;
 														passenger.setBankAmount(leftamount);
-														cout << "Would you Like to Refund your Booking ? (y/n)" << endl;
-														char choise;
-														cin >> choise;
-														if (choise == 'y')
-														{
-															cout << "Your Money will be refunded after Government Tax (25%).\nDo you Still wish to continue ? ( y / n)" << endl;
-															cin >> choise;
-															if (choise == 'y')
-															{
-																double ticketPrice = booking.getcost();
-																double governmentTax = ticketPrice * 0.25;
-																cout << "Your Ticket Price was: $" << ticketPrice;
-																cout << "The Government Tax is : $" << governmentTax;
-																leftamount = passenger.getAmount() + (ticketPrice - governmentTax);
-																passenger.setBankAmount(leftamount);
-																cout << "Now your Bank Balance is : $" << passenger.getAmount();
-
-															}
-
-														}
 													}
 												}
 											}
@@ -515,45 +434,42 @@ int main()
 									}
 
 									else if (passengerchoice == 3) {
-										char choise;
-										cout << "Do you Have VISA for your passport? (y/n)" << endl;
-										cin >> choise;
-										if (choise == 'y')
-										{
-											int abroad;
-											cout << "How many times have you been abroad: ";
-											cin >> abroad;
-											if (abroad > 5) {
-												cout << "What airport would you like to see the Special Flight: ";
-												cin >> city;
+										int abroad;
+										cout << "How many times have you been abroad: ";
+										cin >> abroad;
+										if (abroad > 5) {
+											cout << "What airport would you like to see the Special Flight: ";
+											cin >> city;
 
-												if (city == "Islamabad") {
-													islam.PassengerSF();
-												}
-
-												else if (city == "Quetta") {
-													qut.PassengerSF();
-												}
-
-												else if (city == "Karachi") {
-													khi.PassengerSF();
-												}
-
-												else if (city == "Peshawar") {
-													pesh.PassengerSF();
-												}
-
-												else if (city == "Lahore") {
-													lah.PassengerSF();
-												}
+											if (city == "Islamabad") {
+												islam.DisplayNorthData();
+												islam.DisplaySouthData();
+												islam.PassengerSF();
 											}
-											else
-											{
-												cout << "You have not visited enough countries to view Special Flights..." << endl;
+
+											else if (city == "Quetta") {
+												qut.DisplayNorthData();
+												qut.DisplaySouthData();
+												qut.PassengerSF();
 											}
-										}
-										else {
-											cout << "Sorry ... You cannot view Special Flights without VISA." << endl;
+
+											else if (city == "Karachi") {
+												khi.DisplayNorthData();
+												khi.DisplaySouthData();
+												khi.PassengerSF();
+											}
+
+											else if (city == "Peshawar") {
+												pesh.DisplayNorthData();
+												pesh.DisplaySouthData();
+												pesh.PassengerSF();
+											}
+
+											else if (city == "Lahore") {
+												lah.DisplayNorthData();
+												lah.DisplaySouthData();
+												lah.PassengerSF();
+											}
 										}
 									}
 									cout << endl;
@@ -586,12 +502,13 @@ int main()
 								else {
 									cout << endl;
 									//implementation of Admin choice for changing Schedule
-									while (adminchoice != 4) {
+									while (adminchoice != 5) {
 										cout << "Would you like to:\n"
 											<< "1) Change routes of Indirect International Flights\n"
 											<< "2) Restrict Passengers\n"
 											<< "3) Update Departure Time\n"
-											<< "4) Go back\n"
+											<< "4) Update About Us Information \n"
+											<< "5) Go back\n"
 											<< "Option: ";
 										cin >> adminchoice;
 
@@ -665,7 +582,6 @@ int main()
 											}
 
 										}
-										//adminchoice == 3
 										else if (adminchoice == 3) {
 											cout << "What city airports would you like to change depart times for: ";
 											cin >> city1;
@@ -710,6 +626,26 @@ int main()
 												lah.DisplaySouthData();
 											}
 										}
+										else if (adminchoice == 4)
+										{
+											cout << "Enter New Name :" << endl;
+											cin.ignore();
+											getline(cin, name);
+											cout << "Enter New Address :" << endl;
+											getline(cin, address);
+											cout << "Enter New Contact Number :" << endl;
+											cin >> phoneNumber;
+											cout << "Enter New Email :" << endl;
+											cin >> email;
+											cout << "Thank You for Updating Your Information" << endl;
+											cout << "Would you like to view the Updated Information ? (1/0)" << endl;
+											cin >> adminchoice;
+											if (adminchoice == 1)
+											{
+												AboutUs();
+											}
+										}
+
 									}
 									cout << endl;
 								}
@@ -847,25 +783,8 @@ int main()
 				cin >> city;
 
 				if (city == "Islamabad") {
-					islam.PassengerSF();//Special flight settings for passenger
+					islam.IslamabadSpecialFlights();//Special flight settings for passenger
 				}
-				else if (city == "Karachi")
-				{
-					khi.PassengerSF();
-				}
-				else if (city == "Lahore")
-				{
-					lah.PassengerSF();
-				}
-				else if (city == "Quetta")
-				{
-					qut.PassengerSF();
-				}
-				else if (city == "Peshawar")
-				{
-					pesh.PassengerSF();
-				}
-
 			}
 		}
 
@@ -885,9 +804,5 @@ int main()
 		cout << endl;
 
 	}
-
-	//remove("login_data.txt");
-
 	return 0;
-
 }
